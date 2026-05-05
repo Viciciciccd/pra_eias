@@ -14,6 +14,7 @@
 
 ### News
 
+* **[2026]** 🎉 Process Reward Agents is accepted to **ICML 2026** - see you in Seoul!
 * **[2026]** We release **Process Reward Agents**.
 
 ### Citation
