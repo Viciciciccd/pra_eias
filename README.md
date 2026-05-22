@@ -13,10 +13,6 @@
   <a href="https://github.com/eth-medical-ai-lab/pra" target="_blank"><img src="https://img.shields.io/badge/Code-GitHub-brightgreen"></a>
 </p>
 
-<p align="center">
-  <img src="media/overview_v2.jpg" alt="Overview" width="50%">
-</p>
-
 ### News
 
 - **2026** — Process Reward Agents accepted to **ICML 2026** — see you in Seoul!
