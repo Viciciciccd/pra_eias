@@ -1,0 +1,9 @@
+name: pra_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  # Everything else is pip-installed via `pip install -e ".[training]"`
+  # so version pins live in a single place (pyproject.toml).

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pra"
+version = "0.1.0"
+description = "Process reward agents (library + inference)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.2,<2.3",
+  "requests>=2.32",
+  "tqdm>=4.67",
+  "pyyaml>=6.0",
+  "transformers>=4.57",
+  "torch>=2.8",
+  "vllm>=0.11",
+  "faiss-cpu>=1.12",
+  "huggingface_hub>=0.35",
+]
+
+[project.optional-dependencies]
+training = [
+  "datasets>=4.1",
+  "wandb>=0.22",
+  "scikit-learn>=1.7",
+]
+dev = ["pytest>=9.0", "ruff"]
+
+[project.scripts]
+pra-beam = "pra.inference.beam:main_cli"
+pra-merge-shards = "pra.inference.merge_shards:main_cli"
+pra-sample = "pra.data.sample:main_cli"
+pra-retrieve = "pra.data.retrieve:main_cli"
+pra-label = "pra.data.label:main_cli"
+pra-sft = "pra.training.sft:main_cli"
+pra-download-index = "pra.utils.hf_index:main_cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]

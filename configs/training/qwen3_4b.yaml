@@ -1,0 +1,33 @@
+reward_model_backbone_path: "Qwen/Qwen3-4B-Instruct-2507"
+dataset: "process-reward-agents/medpra-training-dataset-v2"
+
+output_root: "${PRA_OUTPUT_ROOT}/sft"
+
+batch_size: 2
+gradient_accumulation_steps: 1
+num_epochs: 3
+max_len: 16384
+learning_rate: 3.0e-5
+warmup_steps: 100
+weight_decay: 0.01
+lr_scheduler_type: "cosine"
+
+train_sample_filter: [0, 1, 2, 3, 4, 5, 6, 7]
+train_subset_size: null
+use_is_correct_as_reasoning: false
+docs_mode: "all_docs"
+no_docs_ratio: null
+
+eval_steps: 400
+eval_dev_size: 1000
+eval_search_labels: false
+
+save_total_limit: 5
+save_only_model: true
+load_best_model_at_end: true
+metric_for_best_model: "eval_reasoning_auc_roc"
+greater_is_better: true
+
+wandb_entity: null
+wandb_project: null
+wandb_enabled: false

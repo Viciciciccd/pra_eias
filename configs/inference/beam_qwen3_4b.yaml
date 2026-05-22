@@ -1,0 +1,55 @@
+config_name: "beam_qwen3_4b"
+
+# Paths
+input_jsonl_path: "${PRA_DATA_ROOT}/medqa_4/test.jsonl"
+policy_model_path: "Qwen/Qwen3-4B-Instruct-2507"
+reward_model_path: "process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260420_140000_epoch_3"
+trace_dir: "${PRA_OUTPUT_ROOT}/beam"
+
+# GPU layout (policy uses visible_gpus; retriever_device is picked from the same set)
+visible_gpus: "0,1"
+retriever_device: "cuda:1"
+tensor_parallel_size: 1
+
+# Retriever
+retriever_index_path: "${PRA_RETRIEVER_INDEX}"
+retriever_topk: 200
+retriever_rerank_topk: 64
+max_docs: 64
+retriever_sources: "cpg,recop,textbooks,statpearls"
+retriever_use_all_steps: false
+use_reranker: true
+
+# Reward model URL is injected by the SLURM launcher (vLLM port depends on job id).
+
+# Batch sizes (100k ~= "all-in-one-batch" for the current dataset sizes)
+batch_size_pi_theta: 100000
+batch_size_mu_phi: 100000
+batch_size_rho: 1
+max_workers: 4
+rerank_workers: 8
+
+# Reasoning budget
+K_max: 10
+theta_dep: 0
+theta_qual: 0.5
+
+# Policy sampling
+pi_theta_max_tokens: 4096
+pi_theta_temperature: 0.7
+pi_theta_top_p: 0.8
+pi_theta_top_k: 20
+repetition_penalty: 1.1
+
+sample_size: 10000
+aggregate_steps_for_reward: true
+
+# Beam search parameters
+beam_width: 4
+beam_candidates: 16
+beam_final_selection: "cumulative"
+
+# vLLM
+enable_prefix_caching: false
+kmax_no_stop: true
+

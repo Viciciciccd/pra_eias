@@ -1,1 +1,38 @@
+# OS / editor
 .DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+.env
+.python-version
+
+# Tool caches
+.pytest_cache/
+.ipynb_checkpoints/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Experiment tracking
+wandb/
+*.log
+
+# Pipeline outputs (regenerated; do not commit)
+outputs/*
+!outputs/.gitkeep
+
+# Bulk index (downloaded on demand via pra-download-index)
+data/faiss_index/*
+!data/faiss_index/.gitkeep
