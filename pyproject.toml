@@ -35,7 +35,6 @@ pra-sample = "pra.data.sample:main_cli"
 pra-retrieve = "pra.data.retrieve:main_cli"
 pra-label = "pra.data.label:main_cli"
 pra-sft = "pra.training.sft:main_cli"
-pra-download-index = "pra.utils.hf_index:main_cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]

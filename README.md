@@ -70,18 +70,24 @@ them via CLI flag or YAML key.
 Every key in the inference YAML is also accepted as a `--<key>` CLI flag on
 `pra-beam`; explicit CLI flags take precedence over YAML values.
 
-### MedCPT FAISS index
+### Build the retrieval index (BYO corpora)
 
-`pra-beam` and `pra-retrieve` require the four MedCPT FAISS shards
-(`cpg`, `recop`, `textbooks`, `statpearls`) plus their paired
-`{source}_texts.json` files (~7.3 GiB total), published at
-[`process-reward-agents/medcpt-faiss-index`](https://huggingface.co/datasets/process-reward-agents/medcpt-faiss-index).
+We do not redistribute the index files due to mixed licenses on the
+source corpora. Download the originals from these sources, chunk them
+(e.g. with [`RecursiveCharacterTextSplitter`](https://python.langchain.com/api_reference/text_splitters/character/langchain_text_splitters.character.RecursiveCharacterTextSplitter.html)),
+embed with [`ncbi/MedCPT-Article-Encoder`](https://huggingface.co/ncbi/MedCPT-Article-Encoder),
+and write `<source>.index` (FAISS `IndexFlatIP`, dim 768) and
+`<source>_texts.json` (`[{"text": ..., "source": ...}, ...]`) into
+`$PRA_RETRIEVER_INDEX/`.
 
-Download and cache the snapshot:
+Sources used in the paper:
 
-```bash
-pra-download-index  # writes to $PRA_RETRIEVER_INDEX (default ./data/faiss_index)
-```
+| Source       | Where to download                              |
+| ------------ | ---------------------------------------------- |
+| `cpg`        | [`epfl-llm/guidelines`](https://huggingface.co/datasets/epfl-llm/guidelines) (Meditron) |
+| `recop`      | [`guan-wang/ReCOP`](https://huggingface.co/datasets/guan-wang/ReCOP) |
+| `textbooks`  | [`jind11/MedQA`](https://github.com/jind11/MedQA) |
+| `statpearls` | [NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/NBK430685/) |
 
 ### Output layout
 
