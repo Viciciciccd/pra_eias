@@ -13,6 +13,10 @@
   <a href="https://github.com/eth-medical-ai-lab/pra" target="_blank"><img src="https://img.shields.io/badge/Code-GitHub-brightgreen"></a>
 </p>
 
+<p align="center">
+  <img src="media/overview_v2.jpg" alt="Overview" width="50%">
+</p>
+
 ### News
 
 - **2026** — Process Reward Agents accepted to **ICML 2026** — see you in Seoul!
@@ -60,7 +64,7 @@ them via CLI flag or YAML key.
 | Dataset | `data/medqa_4/{dev,test,train}.jsonl` from [`jind11/MedQA`](https://github.com/jind11/MedQA) | `--input_jsonl_path`, or `input_jsonl_path` in the inference YAML |
 | Policy model | `Qwen/Qwen3-4B-Instruct-2507` | `--policy_model_path`, or `policy_model_path` in the inference YAML |
 | Reward-model backbone | `Qwen/Qwen3-4B-Instruct-2507` | `--reward_model_backbone_path`, or `reward_model_backbone_path` in `configs/training/qwen3_4b.yaml` |
-| Reward model | `process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260415_214655_best` | `--reward_model_path`, or `reward_model_path` in the inference YAML |
+| Reward model | `process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260420_140000_epoch_3` | `--reward_model_path`, or `reward_model_path` in the inference YAML |
 | Teacher (step labeler) | `Qwen/Qwen3-235B-A22B-Instruct-2507` (FP8) | `--teacher_model_path` on `pra-label` |
 
 Every key in the inference YAML is also accepted as a `--<key>` CLI flag on
