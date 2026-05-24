@@ -34,7 +34,7 @@
 #   PRA_RETRIEVER_INDEX   - expanded inside config paths (default: ./data/faiss_index)
 #   PRA_CONDA_ENV         - conda env to activate (default: pra_env)
 #   VLLM_PORT              - optional explicit reward-model server port
-#   VLLM_PORT_BASE         - base for auto port selection (default: 8000)
+#   VLLM_PORT_BASE         - base for auto port selection (default: 8400)
 # ============================================================================
 
 set -eo pipefail
@@ -146,7 +146,7 @@ echo "Client GPUs: $CLIENT_GPUS"
 # ----------------------------------------------------------------------------
 # vLLM server for the reward model
 # ----------------------------------------------------------------------------
-BASE_PORT="${VLLM_PORT_BASE:-8000}"
+BASE_PORT="${VLLM_PORT_BASE:-8400}"
 if [ -n "${VLLM_PORT:-}" ]; then
   PORT="$VLLM_PORT"
 elif [ -n "$SHARD_ID" ]; then

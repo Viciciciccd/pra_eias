@@ -36,3 +36,6 @@ outputs/*
 # Bulk index (built locally; do not commit)
 data/faiss_index/*
 !data/faiss_index/.gitkeep
+
+# Generated eval splits (run scripts/preprocess_biomed_r1_eval.py)
+data/medmcqa/*.jsonl

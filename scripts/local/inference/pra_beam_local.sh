@@ -26,8 +26,8 @@ set -eo pipefail
 #
 # Port rule:
 #   - If VLLM_PORT is set, use it.
-#   - Else if shard_id is set, use 8000 + shard_id.
-#   - Else default to 8000.
+#   - Else if VLLM_PORT_BASE is set, use $VLLM_PORT_BASE (+ shard_id if sharded).
+#   - Else use 8400 (+ shard_id if sharded).
 # ==========================================================================
 
 CONFIG_PATH="${1:?Usage: scripts/local/inference/pra_beam_local.sh <config.yaml> [gpu_csv] [num_shards] [shard_id]}"
@@ -90,12 +90,13 @@ if [ -z "$REWARD_MODEL_PATH" ]; then
   exit 4
 fi
 
+BASE_PORT="${VLLM_PORT_BASE:-8400}"
 if [ -n "${VLLM_PORT:-}" ]; then
   PORT="$VLLM_PORT"
 elif [ -n "$SHARD_ID" ]; then
-  PORT=$((8000 + SHARD_ID))
+  PORT=$((BASE_PORT + SHARD_ID))
 else
-  PORT=8000
+  PORT="$BASE_PORT"
 fi
 VLLM_SERVER_URL="http://localhost:${PORT}"
 

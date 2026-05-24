@@ -63,14 +63,14 @@ def _resolve_reward_model_url(args) -> str:
     Priority:
       1) --reward_model_url (already present on args)
       2) $VLLM_PORT
-      3) sharded run: $VLLM_PORT_BASE (default 8000) + shard_id
+      3) sharded run: $VLLM_PORT_BASE (default 8400) + shard_id
       4) non-sharded SLURM run: $VLLM_PORT_BASE + (SLURM_JOB_ID % 1000)
       5) non-sharded local run: $VLLM_PORT_BASE
     """
     if args.reward_model_url:
         return args.reward_model_url
 
-    base_port = int(os.environ["VLLM_PORT_BASE"])
+    base_port = int(os.environ.get("VLLM_PORT_BASE", "8400"))
     vllm_port = os.environ.get("VLLM_PORT")
     if vllm_port:
         port = int(vllm_port)

@@ -1,0 +1,45 @@
+# MedMCQA via BioMed-R1-Eval (generate JSONL first; see README)
+config_name: "beam_qwen3_4b_medmcqa"
+
+input_jsonl_path: "${PRA_DATA_ROOT}/medmcqa/test.jsonl"
+policy_model_path: "Qwen/Qwen3-4B-Instruct-2507"
+reward_model_path: "process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260420_140000_epoch_3"
+trace_dir: "${PRA_OUTPUT_ROOT}/beam"
+
+visible_gpus: "0,1"
+retriever_device: "cuda:1"
+tensor_parallel_size: 1
+
+retriever_index_path: "${PRA_RETRIEVER_INDEX}"
+retriever_topk: 200
+retriever_rerank_topk: 64
+max_docs: 64
+retriever_sources: "cpg,recop,textbooks,statpearls"
+retriever_use_all_steps: false
+use_reranker: true
+
+batch_size_pi_theta: 100000
+batch_size_mu_phi: 100000
+batch_size_rho: 1
+max_workers: 4
+rerank_workers: 8
+
+K_max: 10
+theta_dep: 0
+theta_qual: 0.5
+
+pi_theta_max_tokens: 4096
+pi_theta_temperature: 0.7
+pi_theta_top_p: 0.8
+pi_theta_top_k: 20
+repetition_penalty: 1.1
+
+sample_size: 10000
+aggregate_steps_for_reward: true
+
+beam_width: 4
+beam_candidates: 16
+beam_final_selection: "cumulative"
+
+enable_prefix_caching: false
+kmax_no_stop: true

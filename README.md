@@ -13,6 +13,10 @@
   <a href="https://github.com/eth-medical-ai-lab/pra" target="_blank"><img src="https://img.shields.io/badge/Code-GitHub-brightgreen"></a>
 </p>
 
+<p align="center">
+  <img src="media/overview_v2.jpg" alt="Overview" width="50%">
+</p>
+
 ### News
 
 - **2026** — Process Reward Agents accepted to **ICML 2026** — see you in Seoul!
@@ -137,7 +141,7 @@ pra-beam --config configs/inference/beam_qwen3_4b.yaml --num_shards 3 --shard_id
 pra-beam --config configs/inference/beam_qwen3_4b.yaml --num_shards 3 --shard_id 1
 pra-beam --config configs/inference/beam_qwen3_4b.yaml --num_shards 3 --shard_id 2
 
-# Local wrapper: auto-selects port 8000 + shard_id
+# Local wrapper: auto-selects port 8400 + shard_id
 scripts/local/inference/pra_beam_local.sh configs/inference/beam_qwen3_4b.yaml 0,1,2 3 0
 scripts/local/inference/pra_beam_local.sh configs/inference/beam_qwen3_4b.yaml 3,4,5 3 1
 scripts/local/inference/pra_beam_local.sh configs/inference/beam_qwen3_4b.yaml 6,7,8 3 2
@@ -150,8 +154,11 @@ All inference hyperparameters live in the YAML under `configs/inference/`
 (pass any file via `--config`).
 
 If `VLLM_PORT` is set, both launchers use it. Otherwise `pra-beam` resolves
-`reward_model_url` from `8000 + shard_id` (sharded) or `8000` / a SLURM
-job-id-derived port (non-sharded). The reward prompt uses
+`reward_model_url` from `$VLLM_PORT_BASE + shard_id` (sharded) or
+`$VLLM_PORT_BASE` / a SLURM job-id-derived port (non-sharded).
+`VLLM_PORT_BASE` defaults to `8400` to dodge collisions with the usual
+dev-server port range; override it if 8400+ is also taken on your host.
+The reward prompt uses
 `=== REASONING SOLUTION ===` as the reasoning header.
 
 ### Reward-model SFT
