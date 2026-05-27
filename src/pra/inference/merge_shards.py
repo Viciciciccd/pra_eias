@@ -8,6 +8,7 @@ from collections import Counter
 from typing import Dict, List, Tuple
 
 from pra.utils.prompts import ANSWER_PATTERN
+from pra.utils.scoring import select_final_beam
 
 
 def extract_predicted_answer(steps: List[str]) -> str | None:
@@ -43,20 +44,21 @@ def load_json(path: str):
 
 
 def infer_shard_id_from_path(path: str) -> int:
-    """Infer shard id from a directory/file name containing ``_sh<id>``."""
+    """Infer shard id from a directory/file name containing ``_sh<id>`` or ``_sh<id>ofN``."""
     base = os.path.basename(path.rstrip("/"))
-    m = re.search(r"_sh(\d+)(?:_|$)", base) or re.search(r"_sh(\d+)(?:_|/|$)", path)
-    if not m:
-        raise ValueError(f"Could not infer shard id from path (expected `_sh<id>`): {path}")
-    return int(m.group(1))
+    patterns = (
+        r"_sh(\d+)of\d+(?:_|$)",  # beam.py: {name}_sh0of2_{timestamp}
+        r"_sh(\d+)(?:_|$)",
+    )
+    for pat in patterns:
+        m = re.search(pat, base) or re.search(pat, path)
+        if m:
+            return int(m.group(1))
+    raise ValueError(f"Could not infer shard id from path (expected `_sh<id>`): {path}")
 
 
-def _select_beam_by_method(all_beams: list, method: str) -> dict | None:
-    if not all_beams:
-        return None
-    if method == "cumulative":
-        return max(all_beams, key=lambda b: float(b["cumulative_score"]))
-    raise ValueError(f"Unknown beam selection method: {method}")
+def _select_beam_by_method(all_beams: list, method: str, *, require_parsable: bool = True) -> dict | None:
+    return select_final_beam(all_beams, method, require_parsable=require_parsable)
 
 
 def _beam_method_stats(merged: list, method: str) -> dict:

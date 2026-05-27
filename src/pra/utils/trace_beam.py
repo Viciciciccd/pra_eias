@@ -251,10 +251,14 @@ class BeamTrace:
         self.action = Action.REASON
 
     def get_best_beam(self) -> Optional[Dict[str, Any]]:
-        """Select best beam by cumulative score."""
-        if not self.beams:
-            return None
-        return max(self.beams, key=lambda b: b["cumulative_score"])
+        """Select best beam using ``config.beam_final_selection``."""
+        from pra.utils.scoring import select_final_beam
+
+        return select_final_beam(
+            self.beams,
+            self.config.beam_final_selection,
+            require_parsable=self.config.beam_require_parsable_answer,
+        )
 
     def to_dict(self) -> dict:
         best_beam = self.get_best_beam()

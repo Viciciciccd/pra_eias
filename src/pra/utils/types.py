@@ -20,6 +20,7 @@ class Config:
     beam_width: int = 3
     beam_candidates: int = 5
     beam_final_selection: str = "cumulative"
+    beam_require_parsable_answer: bool = True
     # Adaptive beam search: when adaptive_beam is True and both *_start and *_end
     # are set, values are interpolated over steps with curvature beam_schedule_power
     # (1.0 = linear; >1 keeps closer to start for longer).

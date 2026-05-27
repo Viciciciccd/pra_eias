@@ -71,7 +71,13 @@ def add_beam_args(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
                         help="Number of candidates to generate per beam expansion")
     parser.add_argument("--beam_final_selection", type=str,
                         choices=["cumulative"],
-                        help="How to select the final beam (affects saved steps + retrieval query building)")
+                        help="How to select the final beam (affects saved steps + headline accuracy)")
+    parser.add_argument(
+        "--beam_require_parsable_answer",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="For cumulative selection, only consider beams with a parsable final answer (default: true)",
+    )
     parser.add_argument("--adaptive_beam", action="store_true",
                         help="Enable adaptive beam settings (vary beam_width / beam_candidates by step)")
     parser.add_argument("--beam_candidates_start", type=int,

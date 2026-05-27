@@ -159,6 +159,7 @@ def main(args):
         beam_width=args.beam_width,
         beam_candidates=args.beam_candidates,
         beam_final_selection=args.beam_final_selection,
+        beam_require_parsable_answer=args.beam_require_parsable_answer,
         adaptive_beam=args.adaptive_beam,
         beam_candidates_start=args.beam_candidates_start,
         beam_candidates_end=args.beam_candidates_end,

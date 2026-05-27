@@ -21,6 +21,25 @@ def get_correct_answer_letter(answer_idx) -> str:
     return str(answer_idx).strip().upper()
 
 
+def select_final_beam(beams: list, method: str = "cumulative", *, require_parsable: bool = True) -> dict | None:
+    """Select the final beam by cumulative score.
+
+    When ``require_parsable`` is True (default), only beams with a parsable
+    ``the answer is (X)`` are eligible; returns None if none parse.
+    """
+    if not beams:
+        return None
+    if method != "cumulative":
+        raise ValueError(f"Unknown beam final selection method: {method}")
+    pool = beams
+    if require_parsable:
+        parsable = [b for b in beams if extract_predicted_answer(b.get("steps") or [])]
+        if not parsable:
+            return None
+        pool = parsable
+    return max(pool, key=lambda b: b["cumulative_score"])
+
+
 def _beam_predicted(trace) -> str | None:
     best = trace.get_best_beam()
     return extract_predicted_answer(best["steps"]) if best else None
@@ -156,11 +175,8 @@ def save_results(completed: list, trace_dir: str, config_name: str, test_mode: s
 
 
 def _select_beam(trace, method: str):
-    if not trace.beams:
-        return None
-    if method == "cumulative":
-        return max(trace.beams, key=lambda b: b["cumulative_score"])
-    raise ValueError(f"Unknown beam selection method: {method}")
+    require = getattr(trace.config, "beam_require_parsable_answer", True)
+    return select_final_beam(trace.beams, method, require_parsable=require)
 
 
 def compute_beam_accuracy_by_method(completed: list, method: str) -> dict:
