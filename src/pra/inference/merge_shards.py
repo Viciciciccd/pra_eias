@@ -7,19 +7,7 @@ import re
 from collections import Counter
 from typing import Dict, List, Tuple
 
-from pra.utils.prompts import ANSWER_PATTERN
-from pra.utils.scoring import select_final_beam
-
-
-def extract_predicted_answer(steps: List[str]) -> str | None:
-    """Return the last answer letter found in any step, uppercased."""
-    for step in reversed(steps or []):
-        if not step:
-            continue
-        m = ANSWER_PATTERN.search(step)
-        if m:
-            return m.group(1).upper()
-    return None
+from pra.utils.scoring import extract_predicted_answer, select_final_beam
 
 
 def get_correct_answer_letter(answer_idx) -> str:

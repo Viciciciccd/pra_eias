@@ -35,3 +35,19 @@ ANSWER_PATTERN = re.compile(
         r"the answer is\s*\(?\s*([A-Za-z])\s*\)?",
         re.IGNORECASE,
 )
+
+# Last-step-only patterns for grading beam outputs (A–E option letters).
+ANSWER_LAST_STEP_PATTERNS = (
+        re.compile(
+                r"the answer is\s*\(?\s*([A-Ea-e])\s*\)?",
+                re.IGNORECASE,
+        ),
+        re.compile(
+                r"correct\s+(?:answer|option|choice)\s+is\s+(?:option\s+)?\(?\s*([A-Ea-e])\s*\)?",
+                re.IGNORECASE,
+        ),
+        re.compile(
+                r"(?:^|\n)\s*answer\s*:\s*([A-Ea-e])\s*$",
+                re.IGNORECASE,
+        ),
+)

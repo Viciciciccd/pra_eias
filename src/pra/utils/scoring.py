@@ -3,13 +3,16 @@ import json
 from collections import Counter
 from datetime import datetime
 
-from pra.utils.prompts import ANSWER_PATTERN
+from pra.utils.prompts import ANSWER_LAST_STEP_PATTERNS
 
 
 def extract_predicted_answer(steps: list) -> str | None:
-    """Return the last answer letter found in any step, uppercased."""
-    for step in reversed(steps):
-        match = ANSWER_PATTERN.search(step or "")
+    """Return the answer letter parsed from the last reasoning step, uppercased."""
+    if not steps:
+        return None
+    last = steps[-1] or ""
+    for pattern in ANSWER_LAST_STEP_PATTERNS:
+        match = pattern.search(last)
         if match:
             return match.group(1).upper()
     return None
