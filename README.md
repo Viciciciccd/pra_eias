@@ -16,8 +16,10 @@
 
 ### News
 
-- **2026** — Process Reward Agents accepted to **ICML 2026** — see you in Seoul!
-- **2026** — Process Reward Agents preprint released on arXiv.
+- **May 2026** — Code released on GitHub.
+- **April 2026** — Process Reward Agents accepted to **ICML 2026** — see you in Seoul!
+- **April 2026** — Preprint released on arXiv.
+- **January 2026** — Initial manuscript submitted.
 
 ## Install
 
