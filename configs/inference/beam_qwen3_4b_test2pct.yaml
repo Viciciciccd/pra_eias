@@ -3,7 +3,7 @@ config_name: "beam_qwen3_4b_test2pct"
 
 input_jsonl_path: "${PRA_DATA_ROOT}/medqa_4/test.jsonl"
 policy_model_path: "Qwen/Qwen3-4B-Instruct-2507"
-reward_model_path: "process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260420_140000_epoch_3"
+reward_model_path: "process-reward-agents/qwen3-4b-pra-reward-v1.0"
 trace_dir: "${PRA_OUTPUT_ROOT}/beam"
 
 visible_gpus: "0,1"

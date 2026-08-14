@@ -8,7 +8,7 @@
   <a href="https://icml.cc/Conferences/2026" target="_blank"><img src="https://img.shields.io/badge/ICML-2026-blueviolet"></a>
   <a href="https://arxiv.org/abs/2604.09482" target="_blank"><img src="https://img.shields.io/badge/arXiv-2604.09482-red"></a>
   <a href="https://process-reward-agents.github.io/" target="_blank"><img src="https://img.shields.io/badge/Project-Page-blue"></a>
-  <a href="https://huggingface.co/process-reward-agents" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face%20-Model-orange"></a>
+  <a href="https://huggingface.co/process-reward-agents/qwen3-4b-pra-reward-v1.0" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face%20-Model-orange"></a>
   <a href="https://huggingface.co/process-reward-agents" target="_blank"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face%20-Dataset-orange"></a>
   <a href="https://github.com/eth-medical-ai-lab/pra" target="_blank"><img src="https://img.shields.io/badge/Code-GitHub-brightgreen"></a>
 </p>
@@ -63,7 +63,7 @@ them via CLI flag or YAML key.
 | Dataset | `data/medqa_4/{dev,test,train}.jsonl` from [`jind11/MedQA`](https://github.com/jind11/MedQA) | `--input_jsonl_path`, or `input_jsonl_path` in the inference YAML |
 | Policy model | `Qwen/Qwen3-4B-Instruct-2507` | `--policy_model_path`, or `policy_model_path` in the inference YAML |
 | Reward-model backbone | `Qwen/Qwen3-4B-Instruct-2507` | `--reward_model_backbone_path`, or `reward_model_backbone_path` in `configs/training/qwen3_4b.yaml` |
-| Reward model | `process-reward-agents/Qwen3-4B-Instruct-2507_SFT_all_docs_bs2x2_lr3e-05_20260420_140000_epoch_3` | `--reward_model_path`, or `reward_model_path` in the inference YAML |
+| Reward model | `process-reward-agents/qwen3-4b-pra-reward-v1.0` | `--reward_model_path`, or `reward_model_path` in the inference YAML |
 | Teacher (step labeler) | `Qwen/Qwen3-235B-A22B-Instruct-2507` (FP8) | `--teacher_model_path` on `pra-label` |
 
 Every key in the inference YAML is also accepted as a `--<key>` CLI flag on
